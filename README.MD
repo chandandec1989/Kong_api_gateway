@@ -1,11 +1,11 @@
-## Kong Installation
+# Kong Installation
 Kong comes with a wide range of installation options. Some of them are directly supported by kong, while few other options are supported by the community. Look at different installation options here. I personally use docker based deployment because of its portable. Let's look at a single node kong set up with PostgreSQL.
 
-# Step 1: Create a docker network to deploy kong and PostgreSQL with connectivity
+## Step 1: Create a docker network to deploy kong and PostgreSQL with connectivity
 
 docker network create kong-net
 
-# Step 2: Start PostgreSQL in the “kong-net” network
+## Step 2: Start PostgreSQL in the “kong-net” network
 '''
 docker rm kong-database = delete database if required
 '''
@@ -16,7 +16,7 @@ docker run -d --name kong-database --network=kong-net -p 5432:5432 \
   postgres:16
 ```
 
-# Step-3:- Check the database container:
+## Step-3:- Check the database container:
 
 ```
 docker ps -a --filter name=kong-database
@@ -24,7 +24,7 @@ docker logs kong-database
 docker exec kong-database pg_isready -U kong
 ```
 
-# Step 4: Run migration script on the Postgres DB and get it ready for Kong
+## Step 4: Run migration script on the Postgres DB and get it ready for Kong
 
 Wait until PostgreSQL is accepting connections:
 
@@ -40,7 +40,7 @@ docker run --rm --network=kong-net \
   kong:latest kong migrations bootstrap
 ```
 
-# Step 5: Start the actual Kong docker
+## Step 5: Start the actual Kong docker
 
 ```sh
 docker run -d --name kong --network=kong-net \
@@ -57,11 +57,11 @@ docker run -d --name kong --network=kong-net \
   kong:latest
 ```
 
-# You can check if kong is up and running with the following command.
+## You can check if kong is up and running with the following command.
 
 curl -i http://localhost:8001/
 
-## Kong For Kubernetes
+# Kong For Kubernetes
 If all of your APIs exist within a Kubernetes cluster, the best way to deploy kong is by using the Kong Ingress controller. This installs a couple of containers in a pod, one acting as a control pane and other the data pane. The advantage of this model is that it's Kubernetes-native and automatically discovery APIs through the API server.
 
 Installing kong into Kubernetes is pretty simple. Run the below kubectl.
@@ -70,16 +70,16 @@ kubectl apply -f https://bit.ly/kong-ingress-dbless
 
 This will setup kong with ETCD persistence, few CRD, and a POD with both controller and kong proxy.
 
-# Kong Configuration
+## Kong Configuration
 Lets quickly understand few terminologies needed to configure kong
 
-# Service — 
+## Service — 
 The kong object that binds the upstream API with kong
 curl -i -X POST — url http://localhost:8001/services/ — data ‘name=example-service’ — data ‘url=http://mockbin.org'
 
 In the above example, we create a service named “example-service” pointing to an upstream API “http://mockbin.org”. “http://localhost:8001/services/” is the kong admin endpoint to create a service object
 
-# Route — 
+## Route — 
 The kong object that binds a service with route path for the API consumers
 curl -i -X POST — url http://localhost:8001/services/example-service/routes — data ‘hosts[]=example.com&paths[]=/mockbin’
 
