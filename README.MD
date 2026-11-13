@@ -1,9 +1,16 @@
 # Kong Installation
 Kong comes with a wide range of installation options. Some of them are directly supported by kong, while few other options are supported by the community. Look at different installation options here. I personally use docker based deployment because of its portable. Let's look at a single node kong set up with PostgreSQL.
 
-## link:-
+## kong medium link:-
 '''
 https://medium.com/swlh/kong-api-gateway-zero-to-production-5b8431495ee
+
+https://medium.com/@claudioacquaviva/kong-ai-mcp-gateway-and-kong-mcp-server-technical-breakdown-13420f610ee6
+
+https://medium.com/@nanditasahu031/a-comprehensive-guide-to-kong-api-gateway-11cc374c1ce5
+
+https://medium.com/@claudioacquaviva/multi-llm-react-ai-agent-with-kong-ai-gateway-3-10-and-langgraph-7429c9c1f5ee
+
 '''
 
 ## Step 1: Create a docker network to deploy kong and PostgreSQL with connectivity
